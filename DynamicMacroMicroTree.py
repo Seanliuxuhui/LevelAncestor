@@ -300,7 +300,6 @@ class DynamicMacroMicroTree:
     def _level_ancestor(self, v, x):
         i = k = int(math.log(x +1, 2))
         d = self.depth_macro_tree[v] - x
-        prev = v
         while 2 * (self.depth_macro_tree[v] - d) >= int(math.pow(2, k)):
             if 0 < len(self.jump[v]) < i:
               i -= 1
@@ -325,7 +324,7 @@ class DynamicMacroMicroTree:
         # now w is the first macro node on the path from v to root(v)
         if w != -1 and self.depth[w] > d:
             v, prev = self._level_ancestor(w, int(math.floor((self.depth[w] - d) / self.M)))
-            if self.depth[v] < d:
+            if self.depth[v] <= d:
                 v = prev
         # now there no macro nodes on the path from v.
         if self.depth[self.microtree_root_table[self.node_belongs_to[v]]] <= d:
@@ -333,7 +332,8 @@ class DynamicMacroMicroTree:
         v = self.froms[self.microtree_root_table[self.node_belongs_to[v]]]
         if self.depth[self.microtree_root_table[self.node_belongs_to[v]]] <= d:
             return self._level_ancestor_micro(v, self.depth[v] - d)
-        return self.levelancM[self.microtree_root_table[self.node_belongs_to[v]]][self.depth[self.microtree_root_table[self.node_belongs_to[v]]] - d]
+        tree_root, ancestor = self.microtree_root_table[self.node_belongs_to[v]], self.depth[self.microtree_root_table[self.node_belongs_to[v]]] - d
+        return self.levelancM[tree_root][ancestor]
 
     def _level_ancestor_micro(self, v, x):
         return self.jump_micro[v][x]
