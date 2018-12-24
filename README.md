@@ -6,3 +6,6 @@ The implementation of Static trees where the shape and size of tree is known bef
 The implementation of the Dynamic trees where the leaves are inserting into the tree dynamically. 
 ### Dynamic Macro-Micro-tree Using Table Algorithm
 Using table algorithm (dynamic programming) to store elements for each leaf
+
+### Reference
+S.Alstrup and J. Holm. Improved algorithms for finding level-ancestors in dynamic trees. in ICALP 2000, 2000
